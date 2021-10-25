@@ -1,5 +1,4 @@
 #include "acutest.h"
-#include "cartridge.h"
 #include "gbcpu.h"
 #include "tools.h"
 
@@ -64,30 +63,9 @@ void test_stack() {
     free(stack);
 }
 
-static void print_rom(char * rom_file) {
-    GBCPU cpu;
-    cpu_initialize(&cpu);
-    read_binary(rom_file, cpu.memory);
-
-    const Cartridge* cartridge = cartridge_allocate(cpu.memory);
-
-    printf("Cartridge Type: %d\n", cartridge->cartridge_type);
-    printf("ROM Size: %d\n", cartridge->rom_size);
-    printf("RAM Size: %d\n", cartridge->ram_size);
-
-    free((void*)cartridge);
-}
-
-void test_game_roms() {
-    print_rom("../roms/Dr. Mario (World).gb");
-    print_rom("../roms/Kirby's Dream Land (USA, Europe).gb");
-    print_rom("../roms/Tetris (World) (Rev A).gb");
-        
-}
-
 TEST_LIST = {
    { "Stack", test_stack },
    { "Serial Buffer", test_serial_buffer },
-   { "Check Game ROMs", test_game_roms },
+
    { NULL, NULL } 
 };

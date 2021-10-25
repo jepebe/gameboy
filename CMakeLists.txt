@@ -26,6 +26,10 @@ add_library(gameboy ${sources})
 
 enable_testing()
 
+add_executable(test_cartridge tests/test_cartridge.c)
+target_link_libraries(test_cartridge gameboy)
+add_test("Cartridge" test_cartridge)
+
 add_executable(test_cpu tests/test_cpu.c)
 target_link_libraries(test_cpu gameboy)
 add_test("CPU" test_cpu)
