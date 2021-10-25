@@ -1,5 +1,6 @@
 #pragma once
 #include <stdint.h>
+#include <stdlib.h>
 
 typedef enum {
     ROM_ONLY = 0x00,
@@ -40,9 +41,9 @@ typedef enum {
     ROM_2048_KB = 0x06,
     ROM_4096_KB = 0x07,
     ROM_8192_KB = 0x08,
-    ROM_1152_KB = 0x52,
-    ROM_1280_KB = 0x53,
-    ROM_1536_KB = 0x54,
+    ROM_1152_KB = 0x52, // unused
+    ROM_1280_KB = 0x53, // unused
+    ROM_1536_KB = 0x54, // unused
 } RomSize;
 
 typedef enum {
@@ -52,11 +53,11 @@ typedef enum {
 
 typedef enum {
     RAM_NONE = 0x00,
-    RAM_2_KB = 0x01,
+    RAM_2_KB = 0x01, // unused
     RAM_8_KB = 0x02,
     RAM_32_KB = 0x03,
     RAM_128_KB = 0x04,
-    RAM_64_KB = 0x04,
+    RAM_64_KB = 0x05,
 } RamSize;
 
 typedef struct {
@@ -79,3 +80,9 @@ typedef struct {
 
 const Cartridge* cartridge_allocate(const uint8_t * memory);
 uint8_t cartridge_header_checksum(const uint8_t * memory);
+
+size_t cartridge_ram_size(RamSize ram_size);
+size_t cartridge_ram_bank_count(RamSize ram_size);
+size_t cartridge_rom_size(RomSize rom_size);
+size_t cartridge_rom_bank_count(RomSize rom_size);
+const char * cartridge_type_as_string(CartridgeType type); 
