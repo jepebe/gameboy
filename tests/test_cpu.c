@@ -1,8 +1,9 @@
-#include <acutest.h>
 #include <stdlib.h>
-#include <gbcpu.h>
-#include <cartridge.h>
-#include <tools.h>
+
+#include "acutest.h"
+#include "gbcpu.h"
+#include "cartridge.h"
+#include "tools.h"
 
 const uint8_t nintendo[] = {
     0xCE,0xED,0x66,0x66,0xCC,0x0D,0x00,0x0B,0x03,0x73,0x00,0x83,0x00,0x0C,0x00,0x0D,
@@ -59,21 +60,6 @@ void test_blargg_binary() {
     TEST_MSG("0x%04X != 0x%04X", cartridge->checksum, 0xF530);
 
     free((void*)cartridge);
-}
-
-void test_blargg_cpu_instrs() {
-    GBCPU cpu;
-    cpu_initialize(&cpu);
-    cpu_reset(&cpu);
-    read_binary("roms/cpu_instrs.gb", cpu.memory);
-
-    cpu_clock(&cpu);
-    cpu_clock(&cpu);
-    cpu_clock(&cpu);
-    cpu_clock(&cpu);
-    cpu_clock(&cpu);
-    cpu_clock(&cpu);
-    
 }
 
 void test_cpu_registers() {
@@ -143,7 +129,6 @@ void test_reset() {
 
 TEST_LIST = {
    { "Blargg CPU binary", test_blargg_binary },
-   { "Blargg CPU instructions", test_blargg_cpu_instrs },
    { "CPU Registers", test_cpu_registers },
    { "CPU Reset", test_reset },
    { NULL, NULL }     /* zeroed record marking the end of the list */
