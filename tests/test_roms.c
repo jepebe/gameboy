@@ -241,6 +241,12 @@ void test_bootstrap_rom() {
     }
 
     TEST_CHECK(!cpu.crashed);
+    TEST_CHECK(cpu.reg.AF == 0x01B0);
+    TEST_CHECK(cpu.reg.BC == 0x0013);
+    TEST_CHECK(cpu.reg.DE == 0x00D8);
+    TEST_CHECK(cpu.reg.HL == 0x014D);
+    TEST_CHECK(cpu.reg.SP == 0xFFFE);
+    TEST_CHECK(cpu.reg.PC == 0x0100);
 }
 
 TEST_LIST = {
