@@ -244,27 +244,6 @@ uint8_t cpu_read_from_src(GBCPU *cpu) {
         } else if (cpu->dst.addr == 0xFF47) {
             cpu_print_read_src(cpu, "BGP Window and Palette Data");
         }
-        //     if (cpu->src.addr >= 0x0000 && cpu->src.addr < 0x4000) {
-        //         //printf("Reading from ROM Bank 0 $%04X\n", cpu->src.addr);
-        //     } else if (cpu->src.addr >= 0x4000 && cpu->src.addr < 0x8000) {
-        //         //printf("Reading from ROM Bank 1 $%04X\n", cpu->src.addr);
-        //     } else if (cpu->src.addr >= 0x8000 && cpu->src.addr < 0xA000) {
-        //         //printf("Reading to VRAM $%04X\n", cpu->src.addr);
-        //     } else if (cpu->src.addr >= 0xFF00 && cpu->src.addr <= 0xFF7F) {
-        //         if(cpu->src.addr == 0xFF01) {
-        //             printf("%8zu Reading from serial transfer data    $%04X\n", cpu->instruction_count, cpu->src.addr);
-        //         } else if(cpu->src.addr == 0xFF02) {
-        //             printf("Reading from serial transfer control $%04X\n", cpu->src.addr);
-        //         } else if(cpu->src.addr == 0xFF44) {
-        //             //printf("Reading from LY 0x%02X\n", value);
-        //         } else {
-        //             printf("Reading from I/O Regs $%04X\n", cpu->src.addr);
-        //         }
-        //     } else if (cpu->src.addr >= 0xFF80 && cpu->src.addr <= 0xFFFE){
-        //         // printf("Reading from HRAM $%04X\n", cpu->src.addr);
-        //     } else if (cpu->src.addr == 0xFFFF){
-        //         printf("Reading Interrupt Enable Register $%04X\n", cpu->src.addr);
-        //     }
     }
     return *(uint8_t *)(cpu->src.ptr);
 }
@@ -280,27 +259,6 @@ uint16_t cpu_read_from_src_16(GBCPU *cpu) {
         } else if (cpu->src.addr == 0xDF7E) {
             // cpu_print_read_src_16(cpu, "Memory");
         }
-        //     if (cpu->src.addr >= 0x0000 && cpu->src.addr < 0x4000) {
-        //         //printf("Reading from ROM Bank 0 $%04X\n", cpu->src.addr);
-        //     } else if (cpu->src.addr >= 0x4000 && cpu->src.addr < 0x8000) {
-        //         //printf("Reading from ROM Bank 1 $%04X\n", cpu->src.addr);
-        //     } else if (cpu->src.addr >= 0x8000 && cpu->src.addr < 0xA000) {
-        //         //printf("Reading to VRAM $%04X\n", cpu->src.addr);
-        //     } else if (cpu->src.addr >= 0xFF00 && cpu->src.addr <= 0xFF7F) {
-        //         if(cpu->src.addr == 0xFF01) {
-        //             printf("Reading from serial transfer data    $%04X\n", cpu->src.addr);
-        //         } else if(cpu->src.addr == 0xFF02) {
-        //             printf("Reading from serial transfer control $%04X\n", cpu->src.addr);
-        //         } else if(cpu->src.addr == 0xFF44) {
-        //             //printf("Reading from LY 0x%02X\n", value);
-        //         } else {
-        //             printf("Reading from I/O Regs $%04X\n", cpu->src.addr);
-        //         }
-        //     } else if (cpu->src.addr >= 0xFF80 && cpu->src.addr <= 0xFFFE){
-        //         // printf("Reading from HRAM $%04X\n", cpu->src.addr);
-        //     } else if (cpu->src.addr == 0xFFFF){
-        //         printf("Reading Interrupt Enable Register $%04X\n", cpu->src.addr);
-        //     }
     }
     return *(uint16_t *)(cpu->src.ptr);
 }
@@ -366,7 +324,7 @@ void cpu_write_to_dst(GBCPU *cpu, uint8_t value) {
     }
 
     if (!cpu->dst.reg) {
-        if (cpu->dst.addr >= 0x0000 && cpu->dst.addr < 0x4000) {
+        if (cpu->dst.addr < 0x4000) {
             cpu_print_write(cpu, "ROM Bank 0", value);
         } else if (cpu->dst.addr >= 0x4000 && cpu->dst.addr < 0x8000) {
             cpu_print_write(cpu, "ROM Bank 1", value);
@@ -378,22 +336,6 @@ void cpu_write_to_dst(GBCPU *cpu, uint8_t value) {
             // cpu_print_write(cpu, "WRAM", value);
         } else if (cpu->dst.addr >= 0xE000 && cpu->dst.addr < 0xFDFF) {
             cpu_print_write(cpu, "Echo RAM", value);
-
-            //     } else if (cpu->dst.addr >= 0x8000 && cpu->dst.addr < 0xA000) {
-            //         //printf("Writing to VRAM $%04X\n", cpu->dst.addr);
-            //     } else if (cpu->dst.addr >= 0xFF00 && cpu->dst.addr <= 0xFF7F) {
-            //         if(cpu->dst.addr == 0xFF01) {
-            //             printf("Writing to serial transfer data    0x%02X\n", value);
-            //         } else if(cpu->dst.addr == 0xFF02) {
-            //             printf("Writing to serial transfer control 0x%02X\n", value);
-            //         } else if(cpu->dst.addr == 0xFF44) {
-            //             //printf("Writing to LY 0x%02X\n", value);
-            //         } else {
-            //             printf("Writing to I/O Regs $%04X\n", cpu->dst.addr);
-            //         }
-            //     } else if (cpu->dst.addr >= 0xFF80 && cpu->dst.addr <= 0xFFFE){
-            //         // printf("Writing to HRAM $%04X\n", cpu->dst.addr);
-
         } else if (cpu->dst.addr >= 0xFE00 && cpu->dst.addr <= 0xFE9F) {
             cpu_print_write(cpu, "Object Attribute Memory", value);
 
@@ -505,7 +447,7 @@ void cpu_write_to_dst(GBCPU *cpu, uint8_t value) {
 }
 
 void cpu_write_to_dst_16(GBCPU *cpu, uint16_t value) {
-    if (cpu->dst.reg && cpu->dst.addr >= 0x0000) {
+    if (cpu->dst.reg) {
         printf("%s", &cpu->disassembly[0]);
         // printf("[16] Reg writing to memory!");
     }
@@ -513,7 +455,7 @@ void cpu_write_to_dst_16(GBCPU *cpu, uint16_t value) {
     if (!cpu->dst.reg) {
         // printf("%s", &cpu->disassembly[0]);
         //  printf("16-bit write but not to register $%04X\n", cpu->dst.addr);
-        if (cpu->dst.addr >= 0x0000 && cpu->dst.addr < 0x4000) {
+        if (cpu->dst.addr < 0x4000) {
             cpu_print_write_16(cpu, "ROM Bank 0", value);
         } else if (cpu->dst.addr >= 0x4000 && cpu->dst.addr < 0x8000) {
             cpu_print_write_16(cpu, "ROM Bank 1", value);
