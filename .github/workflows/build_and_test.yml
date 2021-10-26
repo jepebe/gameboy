@@ -21,5 +21,6 @@ jobs:
         cmake --build cmake-build
     - name: Run tests
       run: |
+        ls
         cd cmake-build
         ctest --output-on-failure

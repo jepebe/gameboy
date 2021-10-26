@@ -70,7 +70,7 @@ bool read_binary(const char *file, uint8_t *dst) {
     size_t file_size = ftell(fd);
     rewind(fd);
 
-    size_t max_read = (file_size < 0x10000) ? file_size : 0x10000;
+    size_t max_read = (file_size <= 0x10000) ? file_size : 0x10000;
 
     size_t read = fread(dst, sizeof(char), max_read, fd);
     fclose(fd);

@@ -38,7 +38,7 @@ bool run_cpu(GBCPU *cpu, FILE *log, size_t last_instruction) {
 
                 serial_buffer_clear(&cpu->buffer);
             }
-            if (!fgets(line, sizeof(line), log)) {
+            if (log && !fgets(line, sizeof(line), log)) {
                 // bool success = TEST_CHECK(false);
                 // TEST_MSG("Log is empty!");
                 // if (!success)
@@ -79,7 +79,13 @@ void run_and_test_rom(char *rom, char *log, size_t last_instruction) {
 
     cpu.memory[0xFF44] = 0x90; // LY
 
-    FILE *file = fopen(log, "r");
+    FILE *file;
+    if (log != NULL) {
+        file = fopen(log, "r");
+    } else {
+        file = NULL;
+    }
+
     bool success = run_cpu(&cpu, file, last_instruction);
     success = !cpu.crashed && success;
 
