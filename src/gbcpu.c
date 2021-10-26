@@ -394,7 +394,7 @@ void cpu_write_to_dst(GBCPU *cpu, uint8_t value) {
             //     } else if (cpu->dst.addr >= 0xFF80 && cpu->dst.addr <= 0xFFFE){
             //         // printf("Writing to HRAM $%04X\n", cpu->dst.addr);
 
-        } else if (cpu->dst.addr >= 0xFFE0 && cpu->dst.addr <= 0xFF9F) {
+        } else if (cpu->dst.addr >= 0xFE00 && cpu->dst.addr <= 0xFE9F) {
             cpu_print_write(cpu, "Object Attribute Memory", value);
 
         } else if (cpu->dst.addr >= 0xFF00 && cpu->dst.addr <= 0xFF7F) {
@@ -505,9 +505,9 @@ void cpu_write_to_dst(GBCPU *cpu, uint8_t value) {
 }
 
 void cpu_write_to_dst_16(GBCPU *cpu, uint16_t value) {
-    if (cpu->dst.reg && cpu->dst.addr > 0x0000) {
+    if (cpu->dst.reg && cpu->dst.addr >= 0x0000) {
         printf("%s", &cpu->disassembly[0]);
-        printf("[16] Reg writing to memory!");
+        // printf("[16] Reg writing to memory!");
     }
 
     if (!cpu->dst.reg) {
@@ -521,7 +521,7 @@ void cpu_write_to_dst_16(GBCPU *cpu, uint16_t value) {
             // cpu_print_write_16(cpu, "WRAM", value);
         } else if (cpu->dst.addr >= 0xE000 && cpu->dst.addr <= 0xFDFF) {
             cpu_print_write_16(cpu, "Echo RAM", value);
-        } else if (cpu->dst.addr >= 0xFFE0 && cpu->dst.addr <= 0xFF9F) {
+        } else if (cpu->dst.addr >= 0xFE00 && cpu->dst.addr <= 0xFE9F) {
             cpu_print_write_16(cpu, "Object Attribute Memory", value);
         } else if (cpu->dst.addr >= 0xFF00 && cpu->dst.addr <= 0xFF7F) {
             if (cpu->dst.addr == 0xFF0F) {
