@@ -1,0 +1,25 @@
+name: Build and test
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    name: Building and Testing with CMake
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-latest', 'macos-latest']
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: |
+        mkdir cmake-build        
+        cmake -S . -B cmake-build
+        cmake --build cmake-build
+    - name: Run tests
+      run: |
+        cd cmake-build
+        ctest --output-on-failure
