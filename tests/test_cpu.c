@@ -1,15 +1,15 @@
 #include <stdlib.h>
 
 #include "acutest.h"
-#include "gbcpu.h"
 #include "cartridge.h"
+#include "gbcpu.h"
 #include "tools.h"
 
 const uint8_t nintendo[] = {
-    0xCE,0xED,0x66,0x66,0xCC,0x0D,0x00,0x0B,0x03,0x73,0x00,0x83,0x00,0x0C,0x00,0x0D,
-    0x00,0x08,0x11,0x1F,0x88,0x89,0x00,0x0E,0xDC,0xCC,0x6E,0xE6,0xDD,0xDD,0xD9,0x99,
-    0xBB,0xBB,0x67,0x63,0x6E,0x0E,0xEC,0xCC,0xDD,0xDC,0x99,0x9F,0xBB,0xB9,0x33,0x3E
-};
+    0xCE, 0xED, 0x66, 0x66, 0xCC, 0x0D, 0x00, 0x0B, 0x03, 0x73, 0x00, 0x83,
+    0x00, 0x0C, 0x00, 0x0D, 0x00, 0x08, 0x11, 0x1F, 0x88, 0x89, 0x00, 0x0E,
+    0xDC, 0xCC, 0x6E, 0xE6, 0xDD, 0xDD, 0xD9, 0x99, 0xBB, 0xBB, 0x67, 0x63,
+    0x6E, 0x0E, 0xEC, 0xCC, 0xDD, 0xDC, 0x99, 0x9F, 0xBB, 0xB9, 0x33, 0x3E};
 
 void test_blargg_binary() {
     GBCPU cpu;
@@ -19,18 +19,18 @@ void test_blargg_binary() {
     bool success = read_binary("roms/cpu_instrs.gb", cpu.memory);
     TEST_CHECK(success);
 
-    const Cartridge* cartridge = cartridge_allocate(cpu.memory);
+    const Cartridge *cartridge = cartridge_allocate(cpu.memory);
 
-    for(size_t i = 0; i < 48; ++i) {
-        TEST_CHECK(cartridge->nintendo[i] == nintendo[i ]);
+    for (size_t i = 0; i < 48; ++i) {
+        TEST_CHECK(cartridge->nintendo[i] == nintendo[i]);
         TEST_MSG("0x%02X != 0x%02X", cartridge->nintendo[i], nintendo[i]);
     }
 
     TEST_CHECK(strcmp(cartridge->title, "CPU_INSTRS") == 0);
     TEST_MSG("strcmp() -> %d != 0", strcmp(cartridge->title, "CPU_INSTRS"));
 
-    //TEST_CHECK(cartridge->gb_type == 0x80);
-    //TEST_MSG("0x%02X != 0x%02X", cartridge->gb_type, 0x80);
+    // TEST_CHECK(cartridge->gb_type == 0x80);
+    // TEST_MSG("0x%02X != 0x%02X", cartridge->gb_type, 0x80);
 
     TEST_CHECK(cartridge->lic_code_high == 0x00);
     TEST_CHECK(cartridge->lic_code_low == 0x00);
@@ -59,12 +59,12 @@ void test_blargg_binary() {
     TEST_CHECK(cartridge->checksum == 0xF530);
     TEST_MSG("0x%04X != 0x%04X", cartridge->checksum, 0xF530);
 
-    free((void*)cartridge);
+    free((void *)cartridge);
 }
 
 void test_cpu_registers() {
     cpu_registers reg;
-    
+
     reg.AF = 0xAA55;
     TEST_CHECK(reg.A == 0xAA);
     TEST_CHECK(reg.F == 0x55);
@@ -76,7 +76,7 @@ void test_cpu_registers() {
     TEST_CHECK(reg.flags.n == 1);
     TEST_CHECK(reg.flags.h == 0);
     TEST_CHECK(reg.flags.c == 1);
-    
+
     reg.F = 0xF0;
     TEST_CHECK(reg.flags.z == 1);
     TEST_CHECK(reg.flags.n == 1);
@@ -92,7 +92,7 @@ void test_cpu_registers() {
     reg.BC = 0x6699;
     TEST_CHECK(reg.B == 0x66);
     TEST_CHECK(reg.C == 0x99);
-    
+
     reg.DE = 0x66AA;
     TEST_CHECK(reg.D == 0x66);
     TEST_CHECK(reg.E == 0xAA);
@@ -128,8 +128,8 @@ void test_reset() {
 }
 
 TEST_LIST = {
-   { "Blargg CPU binary", test_blargg_binary },
-   { "CPU Registers", test_cpu_registers },
-   { "CPU Reset", test_reset },
-   { NULL, NULL }     /* zeroed record marking the end of the list */
+    {"Blargg CPU binary", test_blargg_binary},
+    {"CPU Registers", test_cpu_registers},
+    {"CPU Reset", test_reset},
+    {NULL, NULL} /* zeroed record marking the end of the list */
 };

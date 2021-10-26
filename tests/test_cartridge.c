@@ -2,19 +2,19 @@
 #include "cartridge.h"
 #include "gbcpu.h"
 
-static void print_rom(char * rom_file) {
+static void print_rom(char *rom_file) {
     GBCPU cpu;
     cpu_initialize(&cpu);
     read_binary(rom_file, cpu.memory);
 
-    const Cartridge* cartridge = cartridge_allocate(cpu.memory);
+    const Cartridge *cartridge = cartridge_allocate(cpu.memory);
 
     printf("Title: %s\n", cartridge->title);
     printf("Cartridge Type: %s\n", cartridge_type_as_string(cartridge->cartridge_type));
     printf("ROM Size: %zu\n", cartridge_rom_size(cartridge->rom_size));
     printf("RAM Size: %zu\n", cartridge_ram_size(cartridge->ram_size));
 
-    free((void*)cartridge);
+    free((void *)cartridge);
 }
 
 void test_cartridge_functions() {
@@ -47,11 +47,9 @@ void test_game_roms() {
     print_rom("../roms/Dr. Mario (World).gb");
     print_rom("../roms/Kirby's Dream Land (USA, Europe).gb");
     print_rom("../roms/Tetris (World) (Rev A).gb");
-        
 }
 
 TEST_LIST = {
-   { "Test Cartridge Header Functions", test_cartridge_functions },
-   { "Check Game ROMs", test_game_roms },
-   { NULL, NULL } 
-};
+    {"Test Cartridge Header Functions", test_cartridge_functions},
+    {"Check Game ROMs", test_game_roms},
+    {NULL, NULL}};
