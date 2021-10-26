@@ -16,7 +16,7 @@ void test_blargg_binary() {
     cpu_initialize(&cpu);
     cpu_reset(&cpu);
 
-    bool success = read_binary("roms/cpu_instrs.gb", cpu.memory);
+    bool success = read_binary("../tests/roms/cpu_instrs.gb", cpu.memory);
     TEST_CHECK(success);
 
     const Cartridge *cartridge = cartridge_allocate(cpu.memory);
