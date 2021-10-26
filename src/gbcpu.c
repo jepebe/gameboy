@@ -222,9 +222,9 @@ uint8_t cpu_read_from_src(GBCPU *cpu) {
         } else if (cpu->src.addr == 0xFF0F) {
             cpu_print_read_src(cpu, "Interrupt Flag");
         } else if (cpu->src.addr == 0xDF7D) {
-            //cpu_print_read_src(cpu, "Memory");
+            // cpu_print_read_src(cpu, "Memory");
         } else if (cpu->src.addr == 0xDF7E) {
-            //cpu_print_read_src(cpu, "Memory");
+            // cpu_print_read_src(cpu, "Memory");
         } else if (cpu->dst.addr >= 0xFF10 && cpu->dst.addr <= 0xFF26) {
             cpu_print_read_src(cpu, "Sound Registers");
         } else if (cpu->dst.addr == 0xFF40) {
@@ -276,9 +276,9 @@ uint16_t cpu_read_from_src_16(GBCPU *cpu) {
         } else if (cpu->src.addr == 0xFF0F) {
             cpu_print_read_src_16(cpu, "Interrupt Flag");
         } else if (cpu->src.addr == 0xDF7D) {
-            //cpu_print_read_src_16(cpu, "Memory");
+            // cpu_print_read_src_16(cpu, "Memory");
         } else if (cpu->src.addr == 0xDF7E) {
-            //cpu_print_read_src_16(cpu, "Memory");
+            // cpu_print_read_src_16(cpu, "Memory");
         }
         //     if (cpu->src.addr >= 0x0000 && cpu->src.addr < 0x4000) {
         //         //printf("Reading from ROM Bank 0 $%04X\n", cpu->src.addr);
@@ -339,9 +339,9 @@ uint16_t cpu_read_from_dst_16(GBCPU *cpu) {
         if (cpu->dst.addr >= 0xE000 && cpu->dst.addr < 0xFDFF) {
             cpu_print_read_dst_16(cpu, "Echo RAM");
         } else if (cpu->dst.addr == 0xDF7D) {
-            //cpu_print_read_dst_16(cpu, "Memory");
+            // cpu_print_read_dst_16(cpu, "Memory");
         } else if (cpu->dst.addr == 0xDF7E) {
-            //cpu_print_read_dst_16(cpu, "Memory");
+            // cpu_print_read_dst_16(cpu, "Memory");
         } else if (cpu->src.addr == 0xFF0F) {
             cpu_print_read_dst_16(cpu, "Interrupt Flag");
         }
@@ -371,11 +371,11 @@ void cpu_write_to_dst(GBCPU *cpu, uint8_t value) {
         } else if (cpu->dst.addr >= 0x4000 && cpu->dst.addr < 0x8000) {
             cpu_print_write(cpu, "ROM Bank 1", value);
         } else if (cpu->dst.addr >= 0x8000 && cpu->dst.addr <= 0x9FFF) {
-            //cpu_print_write(cpu, "VRAM", value);            }
+            // cpu_print_write(cpu, "VRAM", value);            }
         } else if (cpu->dst.addr >= 0xA000 && cpu->dst.addr <= 0xBFFF) {
-            cpu_print_write(cpu, "External RAM", value);          
+            cpu_print_write(cpu, "External RAM", value);
         } else if (cpu->dst.addr >= 0xC000 && cpu->dst.addr <= 0xDFFF) {
-            //cpu_print_write(cpu, "WRAM", value);          
+            // cpu_print_write(cpu, "WRAM", value);
         } else if (cpu->dst.addr >= 0xE000 && cpu->dst.addr < 0xFDFF) {
             cpu_print_write(cpu, "Echo RAM", value);
 
@@ -393,7 +393,7 @@ void cpu_write_to_dst(GBCPU *cpu, uint8_t value) {
             //         }
             //     } else if (cpu->dst.addr >= 0xFF80 && cpu->dst.addr <= 0xFFFE){
             //         // printf("Writing to HRAM $%04X\n", cpu->dst.addr);
-        
+
         } else if (cpu->dst.addr >= 0xFFE0 && cpu->dst.addr <= 0xFF9F) {
             cpu_print_write(cpu, "Object Attribute Memory", value);
 
@@ -401,11 +401,11 @@ void cpu_write_to_dst(GBCPU *cpu, uint8_t value) {
             if (cpu->dst.addr == 0xFF00) {
                 cpu_print_write(cpu, "P1 Joypad", value);
             } else if (cpu->dst.addr == 0xFF01) {
-                //cpu_print_write(cpu, "SB Serial Transfer Data", value);
+                // cpu_print_write(cpu, "SB Serial Transfer Data", value);
             } else if (cpu->dst.addr == 0xFF02) {
-                //cpu_print_write(cpu, "SC Serial Transfer Control", value);
+                // cpu_print_write(cpu, "SC Serial Transfer Control", value);
             } else if (cpu->dst.addr == 0xFF04) {
-                //ff03 is LSB of DIV
+                // ff03 is LSB of DIV
                 cpu_print_write(cpu, "DIV Divider Register", value);
             } else if (cpu->dst.addr == 0xFF05) {
                 cpu_print_write(cpu, "TIMA Timer Counter", value);
@@ -417,18 +417,18 @@ void cpu_write_to_dst(GBCPU *cpu, uint8_t value) {
                 uint8_t timer_enabled = (value >> 2) & 0x01;
 
                 switch (timer_speed) {
-                    case 0:
-                        timer_speed = 4096;
-                        break;
-                    case 1:
-                        timer_speed = 262144;
-                        break;
-                    case 2:
-                        timer_speed = 65536;
-                        break;
-                    case 3:
-                        timer_speed = 16384;
-                        break;
+                case 0:
+                    timer_speed = 4096;
+                    break;
+                case 1:
+                    timer_speed = 262144;
+                    break;
+                case 2:
+                    timer_speed = 65536;
+                    break;
+                case 3:
+                    timer_speed = 16384;
+                    break;
                 }
 
                 printf("Timer %s to %d\n", (timer_enabled) ? "enabled" : "disabled", timer_speed);
@@ -445,25 +445,25 @@ void cpu_write_to_dst(GBCPU *cpu, uint8_t value) {
                     cpu_push(cpu, cpu->reg.PC & 0x00FF);
                     uint16_t addr;
                     switch (value) {
-                        case 0x01:
-                            addr = 0x0040;
-                            break;
-                        case 0x02:
-                            addr = 0x0048;
-                            break;
-                        case 0x04:
-                            addr = 0x0050;
-                            break;
-                        case 0x08:
-                            addr = 0x0058;
-                            break;
-                        case 0x10:
-                            addr = 0x0060;
-                            break;
-                        default:
-                            printf("Unkown interrupt state 0x%02X\n", value);
-                            addr = cpu->reg.PC;
-                            cpu->crashed = true;
+                    case 0x01:
+                        addr = 0x0040;
+                        break;
+                    case 0x02:
+                        addr = 0x0048;
+                        break;
+                    case 0x04:
+                        addr = 0x0050;
+                        break;
+                    case 0x08:
+                        addr = 0x0058;
+                        break;
+                    case 0x10:
+                        addr = 0x0060;
+                        break;
+                    default:
+                        printf("Unkown interrupt state 0x%02X\n", value);
+                        addr = cpu->reg.PC;
+                        cpu->crashed = true;
                     }
 
                     cpu->reg.PC = addr;
@@ -493,7 +493,7 @@ void cpu_write_to_dst(GBCPU *cpu, uint8_t value) {
                 cpu_print_write(cpu, "Hardware IO Registers", value);
             }
         } else if (cpu->dst.addr >= 0xFF80 && cpu->dst.addr <= 0xFFFE) {
-            //cpu_print_write(cpu, "HRAM", value);
+            // cpu_print_write(cpu, "HRAM", value);
         } else if (cpu->dst.addr == 0xFFFF) {
             cpu_print_write(cpu, "Interrupt Enable", value);
         } else {
@@ -511,8 +511,8 @@ void cpu_write_to_dst_16(GBCPU *cpu, uint16_t value) {
     }
 
     if (!cpu->dst.reg) {
-        //printf("%s", &cpu->disassembly[0]);
-        // printf("16-bit write but not to register $%04X\n", cpu->dst.addr);
+        // printf("%s", &cpu->disassembly[0]);
+        //  printf("16-bit write but not to register $%04X\n", cpu->dst.addr);
         if (cpu->dst.addr >= 0x0000 && cpu->dst.addr < 0x4000) {
             cpu_print_write_16(cpu, "ROM Bank 0", value);
         } else if (cpu->dst.addr >= 0x4000 && cpu->dst.addr < 0x8000) {
@@ -544,7 +544,7 @@ void implied(GBCPU *cpu, DataAccess *data_access) {
     (void)cpu;
     data_access->ptr = NULL;
     data_access->addr = 0x0000;
-    data_access->reg = false;  // maybe?
+    data_access->reg = false; // maybe?
 }
 
 void immediate(GBCPU *cpu, DataAccess *data_access) {

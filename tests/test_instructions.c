@@ -11,20 +11,20 @@ void test_inc_16_and_dec_16() {
     cpu_initialize(&cpu);
     cpu_reset(&cpu);
 
-    cpu.memory[0x0100] = 0x33;  //opcode for inc_16 SP
-    cpu.memory[0x0101] = 0x3B;  //opcode for dec_16 SP
-    cpu.memory[0x0102] = 0x3B;  //opcode for dec_16 SP
-    cpu.memory[0x0103] = 0x23;  //opcode for inc_16 HL
-    cpu.memory[0x0104] = 0x2B;  //opcode for dec_16 HL
-    cpu.memory[0x0105] = 0x2B;  //opcode for dec_16 HL
-    cpu.memory[0x0106] = 0x13;  //opcode for inc_16 DE
-    cpu.memory[0x0107] = 0x1B;  //opcode for dec_16 DE
-    cpu.memory[0x0108] = 0x1B;  //opcode for dec_16 DE
-    cpu.memory[0x0109] = 0x03;  //opcode for inc_16 BC
-    cpu.memory[0x010A] = 0x0B;  //opcode for dec_16 BC
-    cpu.memory[0x010B] = 0x0B;  //opcode for dec_16 BC
+    cpu.memory[0x0100] = 0x33; // opcode for inc_16 SP
+    cpu.memory[0x0101] = 0x3B; // opcode for dec_16 SP
+    cpu.memory[0x0102] = 0x3B; // opcode for dec_16 SP
+    cpu.memory[0x0103] = 0x23; // opcode for inc_16 HL
+    cpu.memory[0x0104] = 0x2B; // opcode for dec_16 HL
+    cpu.memory[0x0105] = 0x2B; // opcode for dec_16 HL
+    cpu.memory[0x0106] = 0x13; // opcode for inc_16 DE
+    cpu.memory[0x0107] = 0x1B; // opcode for dec_16 DE
+    cpu.memory[0x0108] = 0x1B; // opcode for dec_16 DE
+    cpu.memory[0x0109] = 0x03; // opcode for inc_16 BC
+    cpu.memory[0x010A] = 0x0B; // opcode for dec_16 BC
+    cpu.memory[0x010B] = 0x0B; // opcode for dec_16 BC
 
-    cpu.reg.F = 0xF0;  // should also test 0x00
+    cpu.reg.F = 0xF0; // should also test 0x00
     for (size_t i = 0; i < 15; ++i) {
         cpu.reg.PC = 0x0100;
         uint16_t val = values[i];
@@ -134,7 +134,7 @@ void test_print_flags() {
 
     cpu_clock(&cpu, true, false);
 
-    char* expected =
+    char *expected =
         "A: 01 F: B0 B: 00 C: 13 D: 00 E: D8 H: 01 L: 4D "
         "SP: FFFE PC: 00:0100 (33 3B 3B 23)";
 
@@ -144,8 +144,8 @@ void test_print_flags() {
 
 TEST_LIST = {
     {"INC 16 and DEC 16", test_inc_16_and_dec_16},
-    {"ADD Add with carry", test_add },
-    {"ADD SP,r8", test_add_sp_r8 },
+    {"ADD Add with carry", test_add},
+    {"ADD SP,r8", test_add_sp_r8},
     {"Print Flags", test_print_flags},
     {NULL, NULL} /* zeroed record marking the end of the list */
 };

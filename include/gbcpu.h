@@ -5,10 +5,10 @@
 
 typedef struct {
     uint16_t not_used : 4;
-    uint16_t c : 1;  // carry
-    uint16_t h : 1;  // half carry
-    uint16_t n : 1;  // subtract
-    uint16_t z : 1;  // zero
+    uint16_t c : 1; // carry
+    uint16_t h : 1; // half carry
+    uint16_t n : 1; // subtract
+    uint16_t z : 1; // zero
     uint16_t areg : 8;
 } Flags;
 
@@ -235,10 +235,10 @@ void dec_16(GBCPU *cpu);
 void or (GBCPU * cpu);
 void and (GBCPU * cpu);
 void xor (GBCPU * cpu);
-void rla (GBCPU * cpu);
-void rlca (GBCPU * cpu);
-void rra (GBCPU * cpu);
-void rrca (GBCPU * cpu);
+void rla(GBCPU *cpu);
+void rlca(GBCPU *cpu);
+void rra(GBCPU *cpu);
+void rrca(GBCPU *cpu);
 void stop(GBCPU *cpu);
 
 // CB Prefix

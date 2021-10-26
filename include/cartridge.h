@@ -63,8 +63,8 @@ typedef enum {
 typedef struct {
     uint8_t start[0x04];
     uint8_t nintendo[0x30];
-    char title[0x11];  // 16 characters + null termination
-    //uint8_t gb_type;
+    char title[0x11]; // 16 characters + null termination
+    // uint8_t gb_type;
     uint8_t lic_code_high;
     uint8_t lic_code_low;
     uint8_t gb_sgb_indicator;
@@ -78,11 +78,11 @@ typedef struct {
     uint16_t checksum;
 } Cartridge;
 
-const Cartridge* cartridge_allocate(const uint8_t * memory);
-uint8_t cartridge_header_checksum(const uint8_t * memory);
+const Cartridge *cartridge_allocate(const uint8_t *memory);
+uint8_t cartridge_header_checksum(const uint8_t *memory);
 
 size_t cartridge_ram_size(RamSize ram_size);
 size_t cartridge_ram_bank_count(RamSize ram_size);
 size_t cartridge_rom_size(RomSize rom_size);
 size_t cartridge_rom_bank_count(RomSize rom_size);
-const char * cartridge_type_as_string(CartridgeType type); 
+const char *cartridge_type_as_string(CartridgeType type);

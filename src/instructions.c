@@ -3,7 +3,7 @@
 #include "gbcpu.h"
 
 void sbc(GBCPU *cpu) {
-    //Subtract n from dst with carry
+    // Subtract n from dst with carry
     uint8_t a = cpu_read_from_dst(cpu);
     uint8_t b = cpu_read_from_src(cpu);
     uint16_t result = a + ~(b - 1) - cpu->reg.flags.c;
@@ -17,7 +17,7 @@ void sbc(GBCPU *cpu) {
 }
 
 void sub(GBCPU *cpu) {
-    //Subtract n from A
+    // Subtract n from A
     uint8_t a = cpu->reg.A;
     uint8_t b = cpu_read_from_src(cpu);
     uint16_t result = a + ~(b - 1);
@@ -31,7 +31,7 @@ void sub(GBCPU *cpu) {
 }
 
 uint8_t add(GBCPU *cpu, uint8_t a, uint8_t b, bool carry) {
-    //add a to b with carry, update flags
+    // add a to b with carry, update flags
     uint16_t result = a + b + carry;
     cpu->reg.flags.z = ((result & 0xFF) == 0);
     cpu->reg.flags.n = 0;
@@ -41,7 +41,7 @@ uint8_t add(GBCPU *cpu, uint8_t a, uint8_t b, bool carry) {
 }
 
 void add_8(GBCPU *cpu) {
-    //Add src to dst
+    // Add src to dst
     uint8_t a = cpu_read_from_dst(cpu);
     uint8_t b = cpu_read_from_src(cpu);
     uint8_t result = add(cpu, a, b, 0);
@@ -49,7 +49,7 @@ void add_8(GBCPU *cpu) {
 }
 
 void add_16(GBCPU *cpu) {
-    //Add src to dst
+    // Add src to dst
     uint8_t z = cpu->reg.flags.z;
     uint16_t a = cpu_read_from_dst_16(cpu);
     uint16_t b = cpu_read_from_src_16(cpu);
@@ -84,7 +84,7 @@ void adc(GBCPU *cpu) {
 }
 
 void add_sp(GBCPU *cpu) {
-    //Add immediate signed r8 to SP
+    // Add immediate signed r8 to SP
     uint8_t r8 = cpu_read_from_src(cpu);
     uint16_t sp = cpu_read_from_dst_16(cpu);
 
@@ -98,7 +98,7 @@ void add_sp(GBCPU *cpu) {
 
 void cp(GBCPU *cpu) {
     // Compare A with read value
-    //USE SBC
+    // USE SBC
     uint8_t value = cpu_read_from_src(cpu);
     cpu->reg.flags.n = 1;
     cpu->reg.flags.z = cpu->reg.A == value;
@@ -304,7 +304,7 @@ void inc_8(GBCPU *cpu) {
 }
 
 void dec_8(GBCPU *cpu) {
-    uint8_t val = cpu_read_from_dst(cpu);  //*((uint8_t*)(cpu->dst));
+    uint8_t val = cpu_read_from_dst(cpu); //*((uint8_t*)(cpu->dst));
     val--;
 
     cpu->reg.flags.z = val == 0;
@@ -396,7 +396,7 @@ void call_nz(GBCPU *cpu) {
     if (!(cpu->reg.flags.z)) {
         call(cpu);
     } else {
-        //12
+        // 12
     }
 }
 
@@ -404,7 +404,7 @@ void call_z(GBCPU *cpu) {
     if (cpu->reg.flags.z) {
         call(cpu);
     } else {
-        //12
+        // 12
     }
 }
 
@@ -412,7 +412,7 @@ void call_nc(GBCPU *cpu) {
     if (!(cpu->reg.flags.c)) {
         call(cpu);
     } else {
-        //12
+        // 12
     }
 }
 
@@ -420,7 +420,7 @@ void call_c(GBCPU *cpu) {
     if (cpu->reg.flags.c) {
         call(cpu);
     } else {
-        //12
+        // 12
     }
 }
 
@@ -471,7 +471,7 @@ void ret_c(GBCPU *cpu) {
     if (cpu->reg.flags.c) {
         ret(cpu);
     } else {
-        //8
+        // 8
     }
 }
 
@@ -479,7 +479,7 @@ void ret_z(GBCPU *cpu) {
     if (cpu->reg.flags.z) {
         ret(cpu);
     } else {
-        //8
+        // 8
     }
 }
 
@@ -487,7 +487,7 @@ void ret_nc(GBCPU *cpu) {
     if (!cpu->reg.flags.c) {
         ret(cpu);
     } else {
-        //8
+        // 8
     }
 }
 
@@ -495,7 +495,7 @@ void ret_nz(GBCPU *cpu) {
     if (!cpu->reg.flags.z) {
         ret(cpu);
     } else {
-        //8
+        // 8
     }
 }
 
